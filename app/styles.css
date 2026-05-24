@@ -1,0 +1,92 @@
+/* Entire app background */
+
+.stApp {
+    background-color: #050816;
+    color: white;
+}
+
+/* Main container spacing */
+
+.block-container {
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Sidebar */
+
+section[data-testid="stSidebar"] {
+    background-color: #0E1117;
+    border-right: 1px solid #1E293B;
+}
+
+/* KPI Cards */
+
+[data-testid="metric-container"] {
+    background: linear-gradient(145deg, #111827, #1E293B);
+    border: 1px solid #334155;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.35);
+    transition: 0.3s ease-in-out;
+}
+
+/* Hover effect */
+
+[data-testid="metric-container"]:hover {
+    transform: translateY(-3px);
+    border: 1px solid #38BDF8;
+}
+
+/* Metric labels */
+
+[data-testid="metric-container"] label {
+    color: #CBD5E1 !important;
+    font-size: 15px !important;
+}
+
+/* Metric values */
+
+[data-testid="metric-container"] [data-testid="stMetricValue"] {
+    color: #FFFFFF;
+    font-size: 34px;
+    font-weight: 700;
+}
+
+/* Headings */
+
+h1 {
+    color: white;
+    font-size: 42px !important;
+    font-weight: 800 !important;
+}
+
+h2, h3 {
+    color: #F8FAFC;
+}
+
+/* Tables */
+
+[data-testid="stDataFrame"] {
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #1E293B;
+}
+
+/* Alert boxes */
+
+.stAlert {
+    border-radius: 15px;
+}
+
+/* Graph containers */
+
+.element-container:has(.js-plotly-plot) {
+    background-color: #0F172A;
+    padding: 15px;
+    border-radius: 18px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #1E293B;
+}

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: uac-healthcare-analytics
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m streamlit run app/app.py --server.port $PORT --server.address 0.0.0.0
