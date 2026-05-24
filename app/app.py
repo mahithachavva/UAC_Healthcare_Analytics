@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -30,9 +33,7 @@ with open("app/styles.css") as f:
 def load_data():
 
     # Read dataset
-    df = pd.read_csv(
-        r"C:\Users\C Mahitha\OneDrive\Desktop\UAC_Healthcare_Analytics\data\uac_data.csv"
-    )
+    df = pd.read_csv("data/uac_data.csv")
 
     # Clean column names
     df.columns = df.columns.str.strip()
@@ -46,7 +47,7 @@ def load_data():
         'Children discharged from HHS Care': 'Discharged_HHS'
     })
 
-    # Convert date
+    # Convert Date column
     df['Date'] = pd.to_datetime(df['Date'])
 
     # Numeric columns
@@ -123,10 +124,10 @@ df['Rolling_7_Day'] = (
     .mean()
 )
 
-# Discharge Offset Ratio
+# Safe Division Ratio
 df['Discharge_Offset_Ratio'] = (
     df['Discharged_HHS'] /
-    df['Transferred_Out_CBP']
+    df['Transferred_Out_CBP'].replace(0, 1)
 )
 
 # ---------------------------------------------------
@@ -198,9 +199,12 @@ Real-time operational analytics system for monitoring humanitarian healthcare ca
 
 </div>
 """, unsafe_allow_html=True)
+
 # ---------------------------------------------------
 # KPI SECTION
 # ---------------------------------------------------
+
+st.markdown("---")
 
 st.subheader("Key Performance Indicators")
 
@@ -250,6 +254,8 @@ with col4:
 # ALERT ENGINE
 # ---------------------------------------------------
 
+st.markdown("---")
+
 st.subheader("Operational Alerts")
 
 threshold = 1000
@@ -270,6 +276,8 @@ else:
 # DATA PREVIEW
 # ---------------------------------------------------
 
+st.markdown("---")
+
 st.subheader("Dataset Preview")
 
 st.dataframe(filtered_df.head())
@@ -277,6 +285,8 @@ st.dataframe(filtered_df.head())
 # ---------------------------------------------------
 # DYNAMIC METRIC TREND
 # ---------------------------------------------------
+
+st.markdown("---")
 
 st.subheader("Dynamic Trend Analysis")
 
@@ -289,21 +299,25 @@ fig_dynamic = px.line(
 
 fig_dynamic.update_layout(
     xaxis_title="Date",
-    yaxis_title="Metric Value"
-)
-fig_dynamic.update_layout(
+    yaxis_title="Metric Value",
     plot_bgcolor='#0F172A',
     paper_bgcolor='#0F172A',
     font=dict(color='white'),
     title_font=dict(size=22),
     xaxis=dict(showgrid=False),
-    yaxis=dict(showgrid=True)
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='#1E293B'
+    )
 )
+
 st.plotly_chart(fig_dynamic, use_container_width=True)
 
 # ---------------------------------------------------
 # TOTAL SYSTEM LOAD GRAPH
 # ---------------------------------------------------
+
+st.markdown("---")
 
 st.subheader("Total Healthcare System Load")
 
@@ -316,21 +330,25 @@ fig1 = px.line(
 
 fig1.update_layout(
     xaxis_title="Date",
-    yaxis_title="Children Under Care"
-)
-fig1.update_layout(
+    yaxis_title="Children Under Care",
     plot_bgcolor='#0F172A',
     paper_bgcolor='#0F172A',
     font=dict(color='white'),
     title_font=dict(size=22),
     xaxis=dict(showgrid=False),
-    yaxis=dict(showgrid=True)
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='#1E293B'
+    )
 )
+
 st.plotly_chart(fig1, use_container_width=True)
 
 # ---------------------------------------------------
 # CBP VS HHS GRAPH
 # ---------------------------------------------------
+
+st.markdown("---")
 
 st.subheader("CBP vs HHS Operational Comparison")
 
@@ -343,21 +361,25 @@ fig2 = px.line(
 
 fig2.update_layout(
     xaxis_title="Date",
-    yaxis_title="Children Count"
-)
-fig2.update_layout(
+    yaxis_title="Children Count",
     plot_bgcolor='#0F172A',
     paper_bgcolor='#0F172A',
     font=dict(color='white'),
     title_font=dict(size=22),
     xaxis=dict(showgrid=False),
-    yaxis=dict(showgrid=True)
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='#1E293B'
+    )
 )
+
 st.plotly_chart(fig2, use_container_width=True)
 
 # ---------------------------------------------------
 # ROLLING AVERAGE
 # ---------------------------------------------------
+
+st.markdown("---")
 
 st.subheader("Rolling Care Load Stability")
 
@@ -370,21 +392,25 @@ fig3 = px.line(
 
 fig3.update_layout(
     xaxis_title="Date",
-    yaxis_title="Rolling Average"
-)
-fig3.update_layout(
+    yaxis_title="Rolling Average",
     plot_bgcolor='#0F172A',
     paper_bgcolor='#0F172A',
     font=dict(color='white'),
     title_font=dict(size=22),
     xaxis=dict(showgrid=False),
-    yaxis=dict(showgrid=True)
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='#1E293B'
+    )
 )
+
 st.plotly_chart(fig3, use_container_width=True)
 
 # ---------------------------------------------------
 # FORECASTING SECTION
 # ---------------------------------------------------
+
+st.markdown("---")
 
 st.subheader("Forecasting & Predictive Analytics")
 
@@ -399,16 +425,18 @@ fig4 = px.line(
 
 fig4.update_layout(
     xaxis_title="Future Timeline",
-    yaxis_title="Projected Children Under Care"
-)
-fig4.update_layout(
+    yaxis_title="Projected Children Under Care",
     plot_bgcolor='#0F172A',
     paper_bgcolor='#0F172A',
     font=dict(color='white'),
     title_font=dict(size=22),
     xaxis=dict(showgrid=False),
-    yaxis=dict(showgrid=True)
+    yaxis=dict(
+        showgrid=True,
+        gridcolor='#1E293B'
+    )
 )
+
 st.plotly_chart(fig4, use_container_width=True)
 
 st.info(
@@ -418,6 +446,8 @@ st.info(
 # ---------------------------------------------------
 # OPERATIONAL INSIGHTS
 # ---------------------------------------------------
+
+st.markdown("---")
 
 st.subheader("Operational Insights")
 
@@ -434,6 +464,8 @@ st.markdown("""
 # ---------------------------------------------------
 # POLICY RECOMMENDATIONS
 # ---------------------------------------------------
+
+st.markdown("---")
 
 st.subheader("Policy Recommendations")
 
@@ -458,23 +490,22 @@ st.markdown("""
 """)
 
 # ---------------------------------------------------
-# FOOTER
+# EXPORT ANALYTICS OUTPUTS
 # ---------------------------------------------------
 
-st.markdown("---")
-
-st.caption(
-    "Humanitarian Healthcare Capacity Intelligence Dashboard | Healthcare Operations Analytics Platform"
-)
-
+# Export cleaned dataset
 df.to_csv(
     "exports/cleaned_dataset.csv",
     index=False
 )
+
+# Export forecast results
 forecast_df.to_csv(
     "exports/forecast_output.csv",
     index=False
 )
+
+# KPI Summary Export
 summary_df = pd.DataFrame({
 
     "Metric": [
@@ -495,4 +526,14 @@ summary_df = pd.DataFrame({
 summary_df.to_csv(
     "exports/analytics_summary.csv",
     index=False
+)
+
+# ---------------------------------------------------
+# FOOTER
+# ---------------------------------------------------
+
+st.markdown("---")
+
+st.caption(
+    "Humanitarian Healthcare Capacity Intelligence Dashboard | Healthcare Operations Analytics Platform"
 )
